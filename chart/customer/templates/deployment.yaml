@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "customer.fullname" . }}
+  labels:
+    {{- include "customer.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        {{- include "customer.labels" . | indent 8 }}
+    spec:
+      initContainers:
+      {{- include "customer.couchdb.initcontainer" . | indent 6 }}
+      containers:
+      - name: {{ .Chart.Name | quote }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        volumeMounts:
+        - mountPath: /spring-tmp
+          name: spring-tmp
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.service.managementPort }}
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.service.managementPort }}
+          initialDelaySeconds: 35
+          periodSeconds: 20
+          failureThreshold: 6
+        resources:
+        {{- include "customer.resources" . | indent 10 }}
+        securityContext:
+        {{- include "customer.securityContext" . | indent 10 }}
+        env:
+        {{- include "customer.environmentvariables" . | indent 8 }}
+        {{- include "customer.couchdb.environmentvariables" . | indent 8 }}
+        {{- include "customer.hs256key.environmentvariables" . | indent 8 }}
+      volumes:
+      - name: spring-tmp
+        emptyDir:
+          medium: "Memory"

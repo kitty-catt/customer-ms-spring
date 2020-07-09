@@ -1,0 +1,43 @@
+{{- if .Values.testUser.createUser }}
+{{- if not (or .Values.global.istio.enabled .Values.istio.enabled) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ cat .Release.Name "-" .Chart.Name "-create-user-" (randAlphaNum 5 | lower) | nospace | trunc 63 }}
+  labels:
+    {{- include "customer.labels" . | indent 4 }}
+spec:
+  template:
+    metadata:
+      name: {{ cat .Release.Name "-" .Chart.Name "-create-user-" (randAlphaNum 5 | lower) | nospace }}
+      labels:
+        {{- include "customer.labels" . | indent 8 }}
+    spec:
+      restartPolicy: Never
+      initContainers:
+      {{- include "customer.initcontainer" . | indent 6 }}
+      containers:
+      - name: create-user
+        image: {{ .Values.bash.image.repository }}:{{ .Values.bash.image.tag }}
+        command: ["/bin/bash", "-c" ]
+        args:
+        - >
+            secret=${HS256_KEY};
+            jwt1=$(echo -n '{"alg":"HS256","typ":"JWT"}' | openssl enc -base64);
+            jwt2=$(echo -n "{\"scope\":[\"admin\"],\"user_name\":\"${TEST_USER}\"}" | openssl enc -base64);
+            jwt3=$(echo -n "${jwt1}.${jwt2}" | tr '+\/' '-_' | tr -d '=' | tr -d '\r\n');
+            jwt4=$(echo -n "${jwt3}" | openssl dgst -binary -sha256 -hmac "${secret}" | openssl enc -base64 | tr '+\/' '-_' | tr -d '=' | tr -d '\r\n');
+            jwt=$(echo -n "${jwt3}.${jwt4}");
+            for i in `seq 1 120`; do
+              curl --max-time 5 -X POST http://{{- template "customer.fullname" . }}:{{ .Values.service.externalPort }}/micro/customer -H "Content-type: application/json" -H "Authorization: Bearer ${jwt}" -d "{\"username\": \"${TEST_USER}\", \"password\": \"${TEST_PASSWORD}\", \"firstName\": \"user\", \"lastName\": \"name\", \"email\": \"user@name.com\"}";
+            done
+        imagePullPolicy: {{ .Values.bash.image.pullPolicy }}
+        resources:
+        {{- include "customer.resources" . | indent 10 }}
+        securityContext:
+        {{- include "customer.securityContext" . | indent 10 }}
+        env:
+        {{- include "customer.testuser.environmentvariables" . | indent 8 }}
+        {{- include "customer.hs256key.environmentvariables" . | indent 8 }}
+{{- end }}
+{{- end }}
