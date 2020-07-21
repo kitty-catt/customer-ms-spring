@@ -138,7 +138,7 @@ Where:
 * `${TEST_USER}` is the user to create, i.e. `foo`.
 
 ```bash
-curl -X POST -i "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/add" -H "Content-Type: application/json" -H "Authorization: Bearer ${jwt}" -d "{\"username\": \"${TEST_USER}\", \"password\": \"bar\", \"firstName\": \"foo\", \"lastName\": \"bar\", \"email\": \"foo@bar.com\"}"
+curl -X POST -i "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/micro/customer/add" -H "Content-Type: application/json" -H "Authorization: Bearer ${jwt}" -d "{\"username\": \"${TEST_USER}\", \"password\": \"bar\", \"firstName\": \"foo\", \"lastName\": \"bar\", \"email\": \"foo@bar.com\"}"
 
 HTTP/1.1 201 Created
 Date: Mon, 20 Aug 2018 21:43:51 GMT
@@ -169,7 +169,7 @@ Where:
 * `${TEST_USER}` is the user to create, i.e. `foo`.
 
 ```bash
-curl -s -X GET "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/search?username=${TEST_USER}" -H 'Content-type: application/json' -H "${jwt}"
+curl -s -X GET "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/micro/customer/search?username=${TEST_USER}" -H 'Content-type: application/json' -H "${jwt}"
 
 [{"username":"foo","password":"bar","firstName":"foo","lastName":"bar","email":"foo@bar.com","imageUrl":null,"customerId":"7145e43859764b3e8abc76784f1eb36a"}]
 ```

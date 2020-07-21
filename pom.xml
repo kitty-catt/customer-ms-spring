@@ -14,7 +14,7 @@
   <artifactId>customer-application</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  
+
   <properties>
     <pact.version>4.0.10</pact.version>
   </properties>
@@ -24,7 +24,7 @@
     mvn dependency:display-ancestors
     mvn help:effective-pom | grep '\.version>'
     -->
-    
+
   <build>
   	<pluginManagement>
 	    <plugins>
@@ -79,7 +79,7 @@
 	            		<excludes>
 	            			<exclude>**/*ConsumerTest.java</exclude>
 	            			<exclude>**/*ProviderTest.java</exclude>
-	            		</excludes> 
+	            		</excludes>
 	            	</configuration>
 	            </execution>
 	        </executions>
@@ -87,7 +87,7 @@
     	</plugins>
     </pluginManagement>
   </build>
-    
+
   <dependencies>
     <!-- From parent:
       org.springframework.boot:spring-boot-starter
@@ -183,7 +183,7 @@
     	<scope>test</scope>
     </dependency>
   </dependencies>
-  
+
   <profiles>
         <profile>
             <id>pact-consumer</id>

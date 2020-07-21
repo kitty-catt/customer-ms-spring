@@ -5,19 +5,20 @@ metadata:
     architecture: x86_64
     authoritative-source-url: registry.access.redhat.com
     build-date: 2020-03-31T14:54:13.907559
-    commit.image.appsody.dev/date: Thu Jul 2 18:18:56 2020 +0530
-    commit.image.appsody.dev/message: Update README.md
+    commit.image.appsody.dev/date: Thu May 21 08:17:15 2020 -0500
+    commit.image.appsody.dev/message: changed port from string to int
     commit.stack.appsody.dev/contextDir: /incubator/java-spring-boot2
     commit.stack.appsody.dev/date: Thu May 14 09:37:35 2020 +0100
     commit.stack.appsody.dev/message: 'Merge pull request #340 from groeges/release-0.9-codewind'
     description: This image is the Kabanero development container for the java-spring-boot2
       stack
     distribution-scope: public
-    image.opencontainers.org/created: "2020-07-21T14:12:24-05:00"
-    image.opencontainers.org/documentation: https://github.com/ibm-garage-ref-storefront/customer-ms-spring
-    image.opencontainers.org/revision: c78863b580aa4c7e5ad3bea2f5a923ded0be571e-modified
-    image.opencontainers.org/source: https://github.com/ibm-garage-ref-storefront/customer-ms-spring/tree/master
-    image.opencontainers.org/url: https://github.com/ibm-garage-ref-storefront/customer-ms-spring
+    image.opencontainers.org/created: "2020-05-21T10:27:18-05:00"
+    image.opencontainers.org/documentation: https://github.com/oiricaud/customer-ms-spring
+    image.opencontainers.org/revision: cb257400e3c666576fdc74ba01c1723df1af414f-modified
+    image.opencontainers.org/source: https://github.com/oiricaud/customer-ms-spring/tree/HEAD
+      -> origin
+    image.opencontainers.org/url: https://github.com/oiricaud/customer-ms-spring
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
       This base image is freely redistributable, but Red Hat only supports Red Hat
@@ -57,31 +58,10 @@ metadata:
     stack.appsody.dev/id: java-spring-boot2
     stack.appsody.dev/version: 0.3.29
   name: customer-ms-spring
-  namespace: storefront-dev
+  namespace: storefront
 spec:
-  applicationImage: dev.local/customer-ms-spring
+  applicationImage: docker.io/ibmcase/customer-ms-spring
   createKnativeService: false
-  env:
-  - name: COUCHDB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        key: adminPassword
-        name: customer-couchdb-couchdb
-  - name: COUCHDB_USERNAME
-    valueFrom:
-      secretKeyRef:
-        key: adminUsername
-        name: customer-couchdb-couchdb
-  - name: COUCHDB_PROTOCOL
-    value: http
-  - name: COUCHDB_HOST
-    value: customer-couchdb-svc-couchdb
-  - name: COUCHDB_PORT
-    value: 5985
-  - name: COUCHDB_DATABASE
-    value: customers
-  - name: COUCHDB_HS256_KEY
-    value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -92,7 +72,7 @@ spec:
     periodSeconds: 10
   monitoring:
     endpoints:
-    - path: /micro/actuator/prometheus
+      - path: /micro/actuator/prometheus
     labels:
       k8s-app: customer-ms-spring
   readinessProbe:
@@ -103,6 +83,27 @@ spec:
     initialDelaySeconds: 20
     periodSeconds: 10
     timeoutSeconds: 15
+  env:
+    - name: COUCHDB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: customer-couchdb-couchdb
+          key: adminPassword
+    - name: COUCHDB_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: customer-couchdb-couchdb
+          key: adminUsername
+    - name: COUCHDB_PROTOCOL
+      value: http
+    - name: COUCHDB_HOST
+      value: customer-couchdb-svc-couchdb
+    - name: COUCHDB_PORT
+      value: 5985
+    - name: COUCHDB_DATABASE
+      value: customers
+    - name: COUCHDB_HS256_KEY
+      value: E6526VJkKYhyTFRFMC0pTECpHcZ7TGcq8pKsVVgz9KtESVpheEO284qKzfzg8HpWNBPeHOxNGlyudUHi6i8tFQJXC8PiI48RUpMh23vPDLGD35pCM0417gf58z5xlmRNii56fwRCmIhhV7hDsm3KO2jRv4EBVz7HrYbzFeqI45CaStkMYNipzSm2duuer7zRdMjEKIdqsby0JfpQpykHmC5L6hxkX0BT7XWqztTr6xHCwqst26O0g8r7bXSYjp4a
   service:
     annotations:
       prometheus.io/path: /micro/actuator/prometheus

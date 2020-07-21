@@ -85,8 +85,8 @@
 //    public void addCustomer() throws URISyntaxException {
 //        HttpHeaders headers = new HttpHeaders();
 //        HttpEntity<Customer> request = new HttpEntity<>(customer, headers);
-//        ResponseEntity<Customer> result = this.restTemplate.postForEntity("/customer/add", request, Customer.class); 
-//        
+//        ResponseEntity<Customer> result = this.restTemplate.postForEntity("/customer/add", request, Customer.class);
+//
 //        // Verify request succeed
 //        Assert.assertEquals(201, result.getStatusCodeValue());
 //    }
