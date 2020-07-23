@@ -216,7 +216,7 @@ Where:
 * `${jwt_blue}` is the JWT token created in the previous step.
 
 ```bash
-curl -X DELETE -i "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/customer/delete/${CUSTOMER_ID}" -H "Content-type: application/json" -H "Authorization: Bearer ${jwt_blue}"
+curl -X DELETE -i "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/micro/customer/delete/${CUSTOMER_ID}" -H "Content-type: application/json" -H "Authorization: Bearer ${jwt_blue}"
 
 HTTP/1.1 200 OK
 Date: Mon, 20 Aug 2018 22:20:00 GMT
