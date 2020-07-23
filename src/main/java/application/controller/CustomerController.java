@@ -1,9 +1,7 @@
 package application.controller;
 
 import application.config.CloudantProperties;
-import application.model.About;
 import application.model.Customer;
-import application.repository.AboutService;
 import application.repository.CustomerRepository;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Response;
@@ -15,11 +13,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.net.URI;
 import java.util.Map;
 
@@ -30,8 +29,8 @@ import java.util.Map;
 @RequestMapping("/customer")
 @Api(value = "Customer Management System")
 public class CustomerController {
-    final private CustomerRepository customerRepository = new CustomerRepository();
     final private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    final private CustomerRepository customerRepository = new CustomerRepository();
     final private CloudantProperties cloudantProperties;
 
     public CustomerController(CloudantProperties cloudantProperties) {
@@ -66,13 +65,12 @@ public class CustomerController {
         try {
             // TODO: no one should have access to do this, it's not exposed to APIC
             final Database cloudant = cloudantProperties.getCloudantDatabase();
-        
+
             if (payload.get_id() != null && cloudant.contains(payload.get_id())) {
-                System.out.println("Woot");
                 return ResponseEntity.badRequest().body("Id " + payload.get_id() + " already exists");
             }
 
-            String customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), payload.getUsername());
+            String customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), payload.getUsername()).toString();
             if (Strings.isNullOrEmpty(customer)) {
                 return ResponseEntity.badRequest().body("Customer with name " + payload.getUsername() + " already exists");
             }
@@ -146,19 +144,21 @@ public class CustomerController {
     /**
      * @return customer by username
      */
-    @ApiOperation(value = "Search a customer by username", response = Customer.class)
+    @PreAuthorize("#oauth2.hasScope('admin')")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    protected @ResponseBody ResponseEntity<?> searchCustomerByUsername(@RequestParam String username) {
-        System.out.println("searching customer by username " + username);
+    protected @ResponseBody
+    ResponseEntity<?> searchCustomers(@RequestHeader Map<String, String> headers, @RequestParam(required = true) String username) {
         try {
             if (username == null) {
                 return ResponseEntity.badRequest().body("Missing username");
             }
-            return ResponseEntity.ok(customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username));
+            Customer customer = customerRepository.getCustomerByUsername(cloudantProperties.getCloudantDatabase(), username).get(0);
+            return ResponseEntity.ok(customer);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
     }
 
     /**
@@ -166,7 +166,8 @@ public class CustomerController {
      */
     @ApiOperation(value = "Search a customer by id", response = Customer.class)
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    protected @ResponseBody ResponseEntity<?> searchCustomerById(@PathVariable("id") String id) {
+    protected @ResponseBody
+    ResponseEntity<?> searchCustomerById(@PathVariable("id") String id) {
         try {
             if (id == null) {
                 return ResponseEntity.badRequest().body("Missing username");
@@ -214,7 +215,7 @@ public class CustomerController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @RequestMapping(value ="/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     protected ResponseEntity<?> getAllCustomers() {
         return ResponseEntity.ok(customerRepository.getCustomers(cloudantProperties.getCloudantDatabase()));
     }
