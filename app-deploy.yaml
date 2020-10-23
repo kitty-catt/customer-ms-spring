@@ -99,7 +99,7 @@ spec:
     - name: COUCHDB_HOST
       value: customer-couchdb-svc-couchdb
     - name: COUCHDB_PORT
-      value: 5985
+      value: "5985"
     - name: COUCHDB_DATABASE
       value: customers
     - name: COUCHDB_HS256_KEY
