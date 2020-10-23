@@ -58,7 +58,7 @@ metadata:
     stack.appsody.dev/id: java-spring-boot2
     stack.appsody.dev/version: 0.3.29
   name: customer-ms-spring
-  namespace: storefront
+  namespace: storefront-dev
 spec:
   applicationImage: docker.io/ibmcase/customer-ms-spring
   createKnativeService: false
