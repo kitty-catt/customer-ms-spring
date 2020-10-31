@@ -147,7 +147,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-X-Application-Context: customer-microservice:8082
+X-Application-Context: customer-microservice:8080
 Location: http://localhost:8080/customer/41757d0170344f9ea47a2d9634bc9ba7
 Content-Length: 0
 Server: Jetty(9.2.13.v20150730)
@@ -219,7 +219,7 @@ curl -X DELETE -i "http://${CUSTOMER_HOST}:${CUSTOMER_PORT}/micro/customer/delet
 
 HTTP/1.1 200 OK
 Date: Mon, 20 Aug 2018 22:20:00 GMT
-X-Application-Context: customer-microservice:8082
+X-Application-Context: customer-microservice:8080
 Content-Length: 0
 Server: Jetty(9.2.13.v20150730)
 ```

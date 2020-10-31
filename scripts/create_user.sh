@@ -104,7 +104,7 @@ create_jwt_blue
 
 # Forward port
 echo "Forwarding customer port 8080"
-kubectl -n $NAMESPACE port-forward deployment/customer 8082:8082 --pod-running-timeout=1h &
+kubectl -n $NAMESPACE port-forward deployment/customer 8080:8080 --pod-running-timeout=1h &
 echo "Sleeping for 3 seconds while connection is established..."
 sleep 3
 
