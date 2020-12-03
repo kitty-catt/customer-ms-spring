@@ -248,4 +248,39 @@
 		  </build>
         </profile>
     </profiles>
+
+    <reporting>
+      <plugins>
+        <plugin>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
+          <version>6.0.3</version>
+          <reportSets>
+            <reportSet>
+              <reports>
+                <report>aggregate</report>
+              </reports>
+            </reportSet>
+          </reportSets>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.9.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.1.1</version>
+        </plugin>
+      </plugins>
+    </reporting>
+
+    <distributionManagement>
+      <site>
+        <id>www.ibm.com</id>
+        <url>file:///tmp/pnst/</url>
+      </site>
+    </distributionManagement>    
+
 </project>
