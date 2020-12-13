@@ -279,7 +279,7 @@
     <distributionManagement>
       <site>
         <id>www.ibm.com</id>
-        <url>file:///tmp/pnst/</url>
+        <url>file:///tmp/sp/</url>
       </site>
     </distributionManagement>    
 
