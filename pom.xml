@@ -145,23 +145,24 @@
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
       <version>2.9.2</version>
-  </dependency>
-  <dependency>
+    </dependency>
+    <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger-ui</artifactId>
       <version>2.9.2</version>
-  </dependency>    
+    </dependency>
   </dependencies>
+
   <distributionManagement>
     <repository>
       <id>releases-repository</id>
       <name>Releases Repository</name>
-      <url>http://nexus3-sonatype-nexus-service.tools.svc.cluster.local:8081/repository/maven-releases/</url>
+      <url>http://nexus3.tools.svc.cluster.local:80/repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
       <id>snapshots-repository</id>
       <name>Snapshots Repository</name>
-      <url>http://nexus3-sonatype-nexus-service.tools.svc.cluster.local:8081/repository/maven-snapshots/</url>
+      <url>http://nexus3.tools.svc.cluster.local:80/repository/maven-snapshots/</url>
     </snapshotRepository>
     <site>
       <id>silver-platter</id>
