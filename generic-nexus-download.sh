@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # internal form
-export NEXUS3=nexus3-sonatype-nexus-service.tools.svc.cluster.local:8081
+export NEXUS3=nexus3-sonatype-nexus-service.tools.svc.cluster.local:80
 export APP_HOME=/opt/app-root
 rm -Rf $APP_HOME/app.jar
 
