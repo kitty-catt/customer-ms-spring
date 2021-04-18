@@ -10,9 +10,9 @@ RUN mkdir -pv ${WORKDIR}
 
 WORKDIR $WORKDIR
 
-ADD generic-nexus-download.sh ./
+COPY generic-nexus-download.sh ${WORKDIR}/generic-nexus-download.sh
 
-RUN generic-nexus-download.sh
+RUN ${WORKDIR}/generic-nexus-download.sh
 
 RUN chown -R 1001:0 ${WORKDIR} && \
     chmod -R g=u ${WORKDIR} && \
