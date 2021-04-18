@@ -4,19 +4,17 @@ MAINTAINER kitty-catt <kitty-catt@example.com>
 
 LABEL io.openshift.expose-services="8080/http"
 
-ENV WORKDIR="/opt/app-root"
+ENV MYDIR="/opt/app-root"
 
-RUN mkdir -pv ${WORKDIR} 
+RUN mkdir -pv ${MYDIR} 
 
-WORKDIR $WORKDIR
+COPY generic-nexus-download.sh ${MYDIR}/generic-nexus-download.sh
 
-COPY generic-nexus-download.sh ${WORKDIR}/generic-nexus-download.sh
+RUN ${MYDIR}/generic-nexus-download.sh
 
-RUN ${WORKDIR}/generic-nexus-download.sh
-
-RUN chown -R 1001:0 ${WORKDIR} && \
-    chmod -R g=u ${WORKDIR} && \
-    chgrp -R 0 ${WORKDIR}
+RUN chown -R 1001:0 ${MYDIR} && \
+    chmod -R g=u ${MYDIR} && \
+    chgrp -R 0 ${MYDIR}
 
 USER 1001
 EXPOSE 8080
