@@ -6,9 +6,9 @@ LABEL io.openshift.expose-services="8080/http"
 
 ENV WORKDIR="/opt/app-root"
 
-RUN mkdir -pv ${WORKDIR} &&
-    chown -R 1001:0 ${WORKDIR} &&
-    chmod -R g=u ${WORKDIR} &&
+RUN mkdir -pv ${WORKDIR} && \
+    chown -R 1001:0 ${WORKDIR} && \
+    chmod -R g=u ${WORKDIR} && \
     chgrp -R 0 ${WORKDIR}
 
 WORKDIR $WORKDIR
