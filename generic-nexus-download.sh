@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WHOAMI=$(whoami)
-echo "I am ${whoami}"
+echo "I am ${WHOAMI}"
 
 # internal form
 export NEXUS3=nexus3.tools.svc.cluster.local:80
