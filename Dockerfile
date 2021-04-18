@@ -10,7 +10,7 @@ RUN mkdir -pv ${WORKDIR}
 
 WORKDIR $WORKDIR
 
-ADD generic-nexus-download.sh .
+ADD generic-nexus-download.sh ./
 
 RUN generic-nexus-download.sh
 
