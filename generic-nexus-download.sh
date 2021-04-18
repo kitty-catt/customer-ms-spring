@@ -2,7 +2,7 @@
 
 # internal form
 export NEXUS3=nexus3-tools.svc.cluster.local:80
-export APP_HOME=/opt/app-root
+export APP_HOME=/home/jboss
 rm -Rf $APP_HOME/app.jar
 
 # Parameter section:
