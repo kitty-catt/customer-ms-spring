@@ -1,20 +1,24 @@
-FROM default-route-openshift-image-registry.apps-crc.testing/tools-images/openjdk18-openshift:1.8
+FROM registry.access.redhat.com/ubi8/ubi:8.0
 
 MAINTAINER kitty-catt <kitty-catt@example.com>
 
 LABEL io.openshift.expose-services="8080/http"
 
-ENV MYDIR="/home/jboss/app"
+# command line options to pass to the JVM
+ENV	  JAVA_OPTIONS -Xmx512m
 
-RUN mkdir -pv ${MYDIR} 
+# Install the Java runtime, create a user for running the app, and set permissions
+RUN   yum install -y --disableplugin=subscription-manager java-1.8.0-openjdk-headless && \
+      yum clean all --disableplugin=subscription-manager -y && \
+      mkdir -p /opt/app-root/bin
 
-COPY generic-nexus-download.sh ${MYDIR}/generic-nexus-download.sh
+COPY generic-nexus-download.sh /opt/app-root/bin/generic-nexus-download.sh
 
-RUN ${MYDIR}/generic-nexus-download.sh
+RUN /opt/app-root/bin/generic-nexus-download.sh
 
-RUN chown -R 1001:0 ${MYDIR} && \
-    chmod -R g=u ${MYDIR} && \
-    chgrp -R 0 ${MYDIR}
+RUN   chown -R 1001:0 /opt/app-root && \
+      chmod -R g=u /opt/app-root &&\
+      chgrp -R 0 /opt/app-root
 
 USER 1001
 EXPOSE 8080

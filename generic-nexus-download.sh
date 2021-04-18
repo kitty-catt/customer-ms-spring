@@ -1,8 +1,11 @@
 #!/bin/bash
 
+WHOAMI=$(whoami)
+echo "I am ${whoami}"
+
 # internal form
 export NEXUS3=nexus3.tools.svc.cluster.local:80
-export APP_HOME=/home/jboss/app
+export APP_HOME=/opt/app-root/bin
 rm -Rf $APP_HOME/app.jar
 
 # Parameter section:
