@@ -4,7 +4,7 @@ MAINTAINER kitty-catt <kitty-catt@example.com>
 
 LABEL io.openshift.expose-services="8080/http"
 
-ENV MYDIR="/home/jboss"
+ENV MYDIR="/home/jboss/app"
 
 RUN mkdir -pv ${MYDIR} 
 
@@ -19,4 +19,4 @@ RUN chown -R 1001:0 ${MYDIR} && \
 USER 1001
 EXPOSE 8080
 
-CMD ["java -jar /home/jboss/app.jar"]
+CMD ["java -jar /home/jboss/app/app.jar"]

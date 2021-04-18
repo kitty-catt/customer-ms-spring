@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # internal form
-export NEXUS3=nexus3-tools.svc.cluster.local:80
-export APP_HOME=/home/jboss
+export NEXUS3=nexus3.tools.svc.cluster.local:80
+export APP_HOME=/home/jboss/app
 rm -Rf $APP_HOME/app.jar
 
 # Parameter section:
