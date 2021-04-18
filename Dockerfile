@@ -23,4 +23,4 @@ RUN   chown -R 1001:0 /opt/app-root && \
 USER 1001
 EXPOSE 8080
 
-CMD ["java -jar /home/jboss/app/app.jar"]
+CMD ["java -jar /opt/app-root/bin/app.jar"]
