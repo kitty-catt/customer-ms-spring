@@ -1,4 +1,5 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.0
+# Build on centos unless our pipeline overrides the FROM image.
+FROM  centos:7
 
 MAINTAINER kitty-catt <kitty-catt@example.com>
 

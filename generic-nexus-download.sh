@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 WHOAMI=$(whoami)
 echo "I am ${WHOAMI}"
