@@ -190,7 +190,7 @@
     </snapshotRepository>
     <site>
       <id>silver-platter</id>
-      <url>dav:http://silver-platter.tools.svc.cluster.local:8080/webdav/sites/scenario-executor/</url>
+      <url>dav:http://silver-platter.tools.svc.cluster.local:8080/webdav/sites/customer-ms-spring/</url>
     </site>
   </distributionManagement>
 
