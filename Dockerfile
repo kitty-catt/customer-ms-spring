@@ -24,4 +24,5 @@ RUN   chown -R 1001:0 /opt/app-root && \
 USER 1001
 EXPOSE 8080
 
-CMD ["java -jar /opt/app-root/bin/app.jar"]
+ENTRYPOINT ["java"]
+CMD ["-jar","/opt/app-root/bin/app.jar"]
