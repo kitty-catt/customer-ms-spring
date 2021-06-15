@@ -593,6 +593,10 @@
                     <stringProp name="Header.name">Accept</stringProp>
                     <stringProp name="Header.value">application/json, text/plain, */*</stringProp>
                   </elementProp>
+                  <elementProp name="" elementType="Header">
+                    <stringProp name="Header.name">Authorization</stringProp>
+                    <stringProp name="Header.value">Basic Ymx1ZWNvbXB1dGV3ZWI6Ymx1ZWNvbXB1dGV3ZWJzM2NyZXQ=</stringProp>
+                  </elementProp>
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
