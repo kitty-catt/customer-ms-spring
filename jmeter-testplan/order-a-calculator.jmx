@@ -70,6 +70,51 @@
           </elementProp>
           <elementProp name="WEB_HOST" elementType="Argument">
             <stringProp name="Argument.name">WEB_HOST</stringProp>
+            <stringProp name="Argument.value">web-full-bc.prevail-wrkshp-new-roks-915b3b336cabec458a7c7ec2aa7c625f-0000.ams03.containers.appdomain.cloud</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="WEB_PORT" elementType="Argument">
+            <stringProp name="Argument.name">WEB_PORT</stringProp>
+            <stringProp name="Argument.value">80</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="AUTH_HOST" elementType="Argument">
+            <stringProp name="Argument.name">AUTH_HOST</stringProp>
+            <stringProp name="Argument.value">auth-ms-spring-full-bc.prevail-wrkshp-new-roks-915b3b336cabec458a7c7ec2aa7c625f-0000.ams03.containers.appdomain.cloud</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="AUTH_PORT" elementType="Argument">
+            <stringProp name="Argument.name">AUTH_PORT</stringProp>
+            <stringProp name="Argument.value">80</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CUSTOMER_HOST" elementType="Argument">
+            <stringProp name="Argument.name">CUSTOMER_HOST</stringProp>
+            <stringProp name="Argument.value">customer-ms-spring-full-bc.prevail-wrkshp-new-roks-915b3b336cabec458a7c7ec2aa7c625f-0000.ams03.containers.appdomain.cloud</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CUSTOMER_PORT" elementType="Argument">
+            <stringProp name="Argument.name">CUSTOMER_PORT</stringProp>
+            <stringProp name="Argument.value">80</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="EXTERNAL-USER" enabled="false">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="host" elementType="Argument">
+            <stringProp name="Argument.name">host</stringProp>
+            <stringProp name="Argument.value">*</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="scheme" elementType="Argument">
+            <stringProp name="Argument.name">scheme</stringProp>
+            <stringProp name="Argument.value">http</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="WEB_HOST" elementType="Argument">
+            <stringProp name="Argument.name">WEB_HOST</stringProp>
             <stringProp name="Argument.value">web-full-bc.apps-crc.testing</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -600,6 +645,12 @@
                 </collectionProp>
               </HeaderManager>
               <hashTree/>
+              <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+                <stringProp name="JSONPostProcessor.referenceNames">TOKEN</stringProp>
+                <stringProp name="JSONPostProcessor.jsonPathExprs">$.access_token</stringProp>
+                <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              </JSONPostProcessor>
+              <hashTree/>
             </hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/catalog/" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -847,7 +898,7 @@
                   </elementProp>
                   <elementProp name="Authorization" elementType="Header">
                     <stringProp name="Header.name">Authorization</stringProp>
-                    <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjM2MzI2MDYsInVzZXJfbmFtZSI6ImZvbyIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiI3ZmQ1NTBjZS0zNmQzLTQyMGItYWQ1NS0xYjc4ZDM4MDNkZGIiLCJjbGllbnRfaWQiOiJibHVlY29tcHV0ZXdlYiIsInNjb3BlIjpbIm9wZW5pZCJdfQ.CgJSHNBCIhE7dcz4ZUsa4hYDU2vhHeVStqZ1AXWHQYU</stringProp>
+                    <stringProp name="Header.value">Bearer ${TOKEN}</stringProp>
                   </elementProp>
                   <elementProp name="Content-Type" elementType="Header">
                     <stringProp name="Header.name">Content-Type</stringProp>
@@ -1047,7 +1098,7 @@
                 <collectionProp name="HeaderManager.headers">
                   <elementProp name="Authorization" elementType="Header">
                     <stringProp name="Header.name">Authorization</stringProp>
-                    <stringProp name="Header.value">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjM2MzI2MDYsInVzZXJfbmFtZSI6ImZvbyIsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiJdLCJqdGkiOiI3ZmQ1NTBjZS0zNmQzLTQyMGItYWQ1NS0xYjc4ZDM4MDNkZGIiLCJjbGllbnRfaWQiOiJibHVlY29tcHV0ZXdlYiIsInNjb3BlIjpbIm9wZW5pZCJdfQ.CgJSHNBCIhE7dcz4ZUsa4hYDU2vhHeVStqZ1AXWHQYU</stringProp>
+                    <stringProp name="Header.value">Bearer ${TOKEN}</stringProp>
                   </elementProp>
                   <elementProp name="Referer" elementType="Header">
                     <stringProp name="Header.name">Referer</stringProp>
