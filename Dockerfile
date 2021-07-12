@@ -13,9 +13,12 @@ RUN   yum install -y --disableplugin=subscription-manager java-1.8.0-openjdk-hea
       yum clean all --disableplugin=subscription-manager -y && \
       mkdir -p /opt/app-root/bin
 
-COPY generic-nexus-download.sh /opt/app-root/bin/generic-nexus-download.sh
+WORKDIR /opt/app-root/bin
 
-RUN /opt/app-root/bin/generic-nexus-download.sh
+#COPY generic-nexus-download.sh /opt/app-root/bin/generic-nexus-download.sh
+#RUN /opt/app-root/bin/generic-nexus-download.sh
+
+COPY target/customer-ms-spring-0.1-SNAPSHOT.jar app.jar
 
 RUN   chown -R root:0 /opt/app-root && \
       chmod -R g=u /opt/app-root &&\
