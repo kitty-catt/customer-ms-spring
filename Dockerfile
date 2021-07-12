@@ -17,11 +17,11 @@ COPY generic-nexus-download.sh /opt/app-root/bin/generic-nexus-download.sh
 
 RUN /opt/app-root/bin/generic-nexus-download.sh
 
-RUN   chown -R 1001:0 /opt/app-root && \
+RUN   chown -R root:0 /opt/app-root && \
       chmod -R g=u /opt/app-root &&\
       chgrp -R 0 /opt/app-root
 
-USER 1001
+#USER root
 EXPOSE 8080
 
 #ENTRYPOINT ["java"]
